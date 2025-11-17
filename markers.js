@@ -34,7 +34,7 @@ markers = [
     photo: "photos/berlin.jpg",
     author: "Dulek",
     title: "Brandenburger Tor - Berlin - Germany",
-    titlePL: "Brandenburger Tor - Berlin - Niemcy",
+    titlePL: "Brama Brandenburska - Berlin - Niemcy",
     type: "bottle"
   },
   {
@@ -43,7 +43,7 @@ markers = [
     photo: "photos/bucaresti.jpg",
     author: "Dulek",
     title: "Palatul Parlamentului - Bucharest - Romania",
-    titlePL: "Palatul Parlamentului - Bukareszt - Rumunia",
+    titlePL: "Pałac Parlamentu - Bukareszt - Rumunia",
     type: "bottle"
   },
   {
@@ -214,7 +214,7 @@ markers = [
     photo: "photos/piza.jpg",
     author: "Dulek",
     title: "Duomo - Pisa - Italy",
-    titlePL: "Duomo - Piza - Włochy",
+    titlePL: "Krzywa Wieża - Piza - Włochy",
     type: "bottle"
   },
   {
@@ -223,7 +223,7 @@ markers = [
     photo: "photos/prague.jpg",
     author: "Dulek",
     title: "Karlův most - Prague - Czechia",
-    titlePL: "Karlův most - Praga - Czechy",
+    titlePL: "Most Karola - Praga - Czechy",
     type: "bottle"
   },
   {
@@ -250,7 +250,7 @@ markers = [
     photo: "photos/shanghai.jpg",
     author: "Dulek",
     title: "The Bund - Shanghai - China",
-    titlePL: "The Bund - Szanghaj - Chiny",
+    titlePL: "Bund - Szanghaj - Chiny",
     type: "bottle"
   },
   {
@@ -440,7 +440,7 @@ markers = [
     longitude: 30.523168,
     photo: "photos/marcin/ukraine-kiev.jpg",
     title: "Майдан Незалежності - Kiev - Ukraine",
-    titlePL: "Майдан Незалежності - Kijów - Ukraina",
+    titlePL: "Plac Niepodległości, Majdan - Kijów - Ukraina",
     author: "Marcin",
     type: "can"
   },
@@ -449,7 +449,7 @@ markers = [
     longitude: 30.055859,
     photo: "photos/marcin/ukraine-chernobyl.jpg",
     title: "Колесо огляду- Pripyat - Ukraine",
-    titlePL: "Колесо огляду- Prypeć - Ukraina",
+    titlePL: "Park rozrywki - Prypeć - Ukraina",
     author: "Marcin",
     type: "can"
   },
@@ -467,7 +467,7 @@ markers = [
     longitude: 27.54577,
     photo: "photos/marcin/belarus-minsk.jpg",
     title: "Помнік Леніну - Minsk - Belarus",
-    titlePL: "Помнік Леніну - Mińsk - Białoruś",
+    titlePL: "Pomnik Włodzimierza Lenina - Mińsk - Białoruś",
     author: "Marcin",
     type: "bottle"
   },
@@ -476,7 +476,7 @@ markers = [
     longitude: 37.623585,
     photo: "photos/marcin/russia-moscow.jpg",
     title: "Храм Василия Блаженного - Moscow - Russia",
-    titlePL: "Храм Василия Блаженного - Moskwa - Rosja",
+    titlePL: "Sobór Wasyla Błogosławionego - Moskwa - Rosja",
     author: "Marcin",
     type: "can"
   },
@@ -485,7 +485,7 @@ markers = [
     longitude: 30.314702,
     photo: "photos/marcin/russia-petersburg.jpg",
     title: "Государственный Эрмитаж -  St. Petersburg - Russia",
-    titlePL: "Государственный Эрмитаж - St. Petersburg - Rosja",
+    titlePL: "Ermitaż - St. Petersburg - Rosja",
     author: "Marcin",
     type: "can"
   },
@@ -494,7 +494,7 @@ markers = [
     longitude: 19.039490,
     photo: "photos/marcin/budapest.jpg",
     title: "Országház - Budapest - Hungary",
-    titlePL: "Országház - Budapeszt - Węgry",
+    titlePL: "Budynek parlamentu - Budapeszt - Węgry",
     author: "Marcin",
     type: "can"
   },
@@ -503,7 +503,7 @@ markers = [
     longitude: 30.062219,
     photo: "photos/marcin/ukraine-chernobyl2.jpg",
     title: "Duga radar - Chernobyl - Ukraine",
-    titlePL: "Duga radar - Czarnobyl - Ukraina",
+    titlePL: "Duga, Oko Moskwy - Czarnobyl - Ukraina",
     author: "Marcin",
     type: "can"
   },
@@ -512,7 +512,7 @@ markers = [
     longitude: 25.289527,
     photo: "photos/marcin/lithuania-vilnius.jpg",
     title: "Aušros Vartai - Vilnius - Lithuania",
-    titlePL: "Aušros Vartai - Wilno - Litwa",
+    titlePL: "Ostra Brama - Wilno - Litwa",
     author: "Marcin",
     type: "can"
   },
@@ -539,7 +539,7 @@ markers = [
     longitude: 26.085733,
     photo: "photos/marcin/romania-bucharest.jpg",
     title: "Palatul Parlamentului - Bucharest - Romania",
-    titlePL: "Palatul Parlamentului - Bukareszt - Rumunia",
+    titlePL: "Pałac Parlamentu - Bukareszt - Rumunia",
     author: "Marcin",
     type: "can"
   },
@@ -566,7 +566,7 @@ markers = [
     longitude: 2.295542,
     photo: "photos/marcin/france-paris.jpg",
     title: "Arc de Triomphe - Paris - France",
-    titlePL: "Arc de Triomphe - Paryż - Francja",
+    titlePL: "Łuk Triumfalny - Paryż - Francja",
     author: "Marcin",
     type: "can"
   },
@@ -584,7 +584,7 @@ markers = [
     longitude: 12.493114,
     photo: "photos/marcin/italy-rome.jpg",
     title: "Colosseo - Rome - Italy",
-    titlePL: "Colosseo - Rzym - Włochy",
+    titlePL: "Koloseum - Rzym - Włochy",
     author: "Marcin",
     type: "can"
   },
@@ -593,7 +593,7 @@ markers = [
     longitude: 44.538459,
     photo: "photos/marcin/russia-volgograd.jpg",
     title: "Родина-мать зовёт! - Volgograd - Russia",
-    titlePL: "Родина-мать зовёт! - Wołgograd - Rosja",
+    titlePL: "Matka Ojczyzna Wzywa! - Wołgograd - Rosja",
     author: "Marcin",
     type: "can"
   },
@@ -611,7 +611,7 @@ markers = [
     longitude: 12.456799,
     photo: "photos/marcin/vatican.jpg",
     title: "Piazza San Pietro - Vatican",
-    titlePL: "Piazza San Pietro - Watykan",
+    titlePL: "Plac świętego Piotra - Watykan",
     author: "Marcin",
     type: "can"
   },
@@ -620,7 +620,7 @@ markers = [
     longitude: 9.189900,
     photo: "photos/marcin/italy-milan.jpg",
     title: "Duomo - Milan - Italy",
-    titlePL: "Duomo - Mediolan - Włochy",
+    titlePL: "Katedra Narodzin św. Marii - Mediolan - Włochy",
     author: "Marcin",
     type: "can"
   },
@@ -629,7 +629,7 @@ markers = [
     longitude: 4.484263,
     photo: "photos/marcin/netherlands-rotterdam.jpg",
     title: "Erasmusbeeld - Rotterdam - Netherlands",
-    titlePL: "Erasmusbeeld - Rotterdam - Holandia",
+    titlePL: "Pomnik Erasmusa - Rotterdam - Holandia",
     author: "Marcin",
     type: "can"
   },
@@ -638,7 +638,7 @@ markers = [
     longitude: 16.372398,
     photo: "photos/marcin/austria-vienna.jpg",
     title: "Domkirche St. Stephan - Vienna - Austria",
-    titlePL: "Domkirche St. Stephan - Wiedeń - Austria",
+    titlePL: "Katedra św. Szczepana - Wiedeń - Austria",
     author: "Marcin",
     type: "can"
   },
@@ -1152,7 +1152,7 @@ markers = [
     photo: "photos/tomasz/rimini-old-town.jpg",
     author: "Tomasz",
     title: "Piazza Tre Martiri - Rimini - Italy",
-    titlePL: "Piazza Tre Martiri - Rimini - Włochy",
+    titlePL: "Plac Trzech Męczenników - Rimini - Włochy",
     datetime: "2018-09-20T18:33:33.000Z",
     type: "can"
   },  
@@ -1172,7 +1172,7 @@ markers = [
     photo: "photos/tomasz/rimini-fountain.jpg",
     author: "Tomasz",
     title: "Fontana dei Quattro Cavalli - Rimini - Italy",
-    titlePL: "Fontana dei Quattro Cavalli - Rimini - Włochy",
+    titlePL: "Fontanna Czterech Koni - Rimini - Włochy",
     datetime: "2018-09-23T23:10:10.000Z",
     type: "can"
   },
@@ -1288,7 +1288,7 @@ markers = [
     photo: "photos/tomasz/odessa-pushkin.jpg",
     author: "Tomasz",
     title: "Monument to Alexander Pushkin - Odessa - Ukraine",
-    titlePL: "Monument to Alexander Pushkin - Odessa - Ukraina",
+    titlePL: "Pomnik Aleksandra Puszkina - Odessa - Ukraina",
     datetime: "2019-11-05T13:43:16.000Z",
     type: "can"
   },  
@@ -1298,7 +1298,7 @@ markers = [
     photo: "photos/tomasz/odessa-stairs.jpg",
     author: "Tomasz",
     title: "Potemkin Stairs - Odessa - Ukraine",
-    titlePL: "Potemkin Stairs - Odessa - Ukraina",
+    titlePL: "Schody Potiomkinowskie - Odessa - Ukraina",
     datetime: "2019-11-07T16:10:31.000Z",
     type: "can"
   }, 
@@ -1308,7 +1308,7 @@ markers = [
     photo: "photos/tomasz/odessa-black-sea.jpg",
     author: "Tomasz",
     title: "Black Sea - Odessa - Ukraine",
-    titlePL: "Black Sea - Odessa - Ukraina",
+    titlePL: "Morze Czarne - Odessa - Ukraina",
     datetime: "2019-11-07T16:52:03.000Z",
     type: "can"
   },
@@ -1604,7 +1604,7 @@ markers = [
     photo: "photos/tomasz/syrakuzy-aretuza.jpg",
     author: "Tomasz",
     title: "The Fountain of Arethusa - Syracuse, Ortigia - Sicily, Italy",    
-    titlePL: "The Fountain of Arethusa - Syracuse, Ortigia - Sicily, Włochy",
+    titlePL: "Źródło Aretuzy, Ortigia - Syrakuzy - Sycylia, Włochy",
     commentPL: "Fontanna Aretuzy w Syrakuzach to źródło słodkiej wody, które tryska na brzegu morza, tworząc małe jezioro (i gości kaczki krzyżówki). Według mitologii greckiej źródło jest poświęcone nimfie Aretuzie, która została w nie przemieniona przez Artemidę, aby uciec przed uporczywym uczuciem Alfeusza, syna boga Oceanu. Jedno z dwóch lub trzech miejsc w Europie gdzie rośnie papirus.",    
     comment: "The Fountain of Arethusa in Syracuse a freshwater spring that gushes out at the seashore, forming a small lake (and hosts mallard ducks). According to Greek mythology, the spring is dedicated to the nymph Arethusa, who was transformed into it by Artemis to escape the persistent affection of Alphaeus, the son of the god Ocean. Home to one of only few existing wild papyretic springs in Europe.",
     datetime: "2021-09-12T18:27:25.000Z",
@@ -1616,7 +1616,7 @@ markers = [
     photo: "photos/tomasz/syrakuzy-ortigia.jpg",
     author: "Tomasz",
     title: "Syracuse, Ortigia - Sicily, Italy",    
-    titlePL: "Syracuse, Ortigia - Sicily, Włochy",
+    titlePL: "Ortigia - Syrakuzy - Sycylia, Włochyy",
     commentPL: "Wyspa Ortigia w Syrakuzach to połączenie starożytnej historii i śródziemnomorskiego uroku. Podobnie jak szachach, gdzie Obrona Sycylijska strategicznie broni króla, Ortigia przez wieki pilnuje dziedzictwa Sycylii.",    
     comment: "The Fountain of Arethusa ",
     datetime: "2021-09-12T18:27:25.000Z",
@@ -1708,7 +1708,7 @@ markers = [
     photo: "photos/tomasz/rolling-stones-stockholm.jpg",
     author: "Tomasz",
     title: "The Rolling Stones, Friends Arena - Stockholm - Sweden",
-    titlePL: "The Rolling Stones, Friends Arena - Stockholm - Szwecja",
+    titlePL: "The Rolling Stones, Friends Arena - Sztokholm - Szwecja",
     commentPL: "Koncert Rolling Stonesów odbył się w ramach trasy 'Sixty'. Oprócz przebojów, takich jak Gimme Shelter i Paint it Black, zagrali także Angie. Podróż gdańskich fanów zespołu odbyła się bezpośrednio po Festiwalu Jazz w Lesie, a 'Specjal' musiał sprytnie dostać się na teren koncertu!",
     comment: "The Rolling Stones concert during the 'Sixty' tour took place at Friends Arena. In addition to their greatest hits such as Gimme Shelter and Paint it Black, they also performed Angie. The trip for the Rolling Stones fans from Gdańsk took place immediately after the Jazz w Lesie Festival, and the Specjal had to make its way to the area cleverly!",
     datetime: "2022-07-31T19:19:55.000Z",
@@ -1720,7 +1720,7 @@ markers = [
     photo: "photos/tomasz/stockholm.jpg",
     author: "Tomasz",
     title: "Stockholm - Sweden",
-    titlePL: "Stockholm - Szwecja",
+    titlePL: "Sztokholm - Szwecja",
     datetime: "2022-08-01T12:17:31.000Z",
     type: "can"
   },
@@ -1740,7 +1740,7 @@ markers = [
     photo: "photos/tomasz/edynburg.jpg",
     author: "Tomasz",
     title: "Calton Hill - Edinburgh - Scotland",
-    titlePL: "Calton Hill - Edinburgh - Szkocja",
+    titlePL: "Calton Hill - Edynburg - Szkocja",
     datetime: "2022-12-30T15:32:30.000Z",
     type: "bottle"
   },
@@ -1750,7 +1750,7 @@ markers = [
     photo: "photos/tomasz/edynburg2.jpg",
     author: "Tomasz",
     title: "Calton Hill - Edinburgh - Scotland",
-    titlePL: "Calton Hill - Edinburgh - Szkocja",
+    titlePL: "Calton Hill - Edynburg - Szkocja",
     datetime: "2022-12-30T14:21:52.000Z",
     type: "bottle"
   },
@@ -1760,7 +1760,7 @@ markers = [
     photo: "photos/tomasz/makita-gdansk.jpg",
     author: "Tomasz",
     title: "World Cat Day - Gdańsk - Poland",
-    titlePL: "World Cat Day - Gdańsk - Polska",
+    titlePL: "Światowy Dzień Kota - Gdańsk - Polska",
     commentPL: "Światowy Dzień Kota wg polskiego kalendarza ma miejsce 17 lutego. Na świecie obchodzony także 8 sierpnia czy np. 29 października. Kotka na zdjęciu to Makita / Maka / Maczka.",
     comment: "Even though Cat's Day may take place on August 8th (Canada), October 29th (United States), etc. in Poland it is on February 17th. The Kitty is called Makita aka Maka or Maczka (phonetically: Matchka).",
     datetime: "2022-02-17",
@@ -1772,7 +1772,7 @@ markers = [
     photo: "photos/tomasz/edynburg-papuga.jpg",
     author: "Tomasz",
     title: "Waterfront Park - Edinburgh - Scotland",
-    titlePL: "Waterfront Park - Edinburgh - Szkocja",
+    titlePL: "Waterfront Park - Edynburg - Szkocja",
     datetime: "2022-12-31T15:44:16.000Z",
     type: "can"
   },
@@ -1782,7 +1782,7 @@ markers = [
     photo: "photos/tomasz/edynburg-title.jpg",
     author: "Tomasz",
     title: "City Title - Edinburgh - Scotland",
-    titlePL: "City Title - Edinburgh - Szkocja",
+    titlePL: "City Title - Edynburg - Szkocja",
     datetime: "2022-12-26T17:14:31.000Z",
     type: "can"
   },
@@ -1791,8 +1791,8 @@ markers = [
     longitude: -3.177433333333333,
     photo: "photos/tomasz/edynburg-hmy-britannia.jpg",
     author: "Tomasz",
-    title: "Her Majesty's Yacht Britannia -  Leith, Edinburgh - Scotland",
-    titlePL: "Her Majesty's Yacht Britannia - Leith, Edinburgh - Szkocja",
+    title: "Her Majesty's Yacht Britannia,  Leithn - Edinburgh - Scotland",
+    titlePL: "Her Majesty's Yacht Britannia, Leith - Edynburg - Szkocja",
     datetime: "2022-12-28T16:32:01.000Z",
     type: "can"
   },
@@ -2092,7 +2092,7 @@ markers = [
     photo: "photos/tomasz/rzym-koloseum.jpg",
     author: "Tomasz",
     title: "Colosseo - Rome - Italy",
-    titlePL: "Colosseo - Rzym - Włochy",
+    titlePL: "Koloseum - Rzym - Włochy",
     datetime: "2024-04-25T17:28:22.000Z",
     type: "can"
   },
@@ -2112,7 +2112,7 @@ markers = [
     photo: "photos/tomasz/rzym-ditrevi.jpg",
     author: "Tomasz",
     title: "Fontana di Trevi - Rome - Italy",
-    titlePL: "Fontana di Trevi - Rzym - Włochy",
+    titlePL: "Fontanna di Trevi - Rzym - Włochy",
     datetime: "2024-04-25T13:12:13.000Z",
     type: "can"
   },
@@ -2132,7 +2132,7 @@ markers = [
     photo: "photos/tomasz/pompeje.jpg",
     author: "Tomasz",
     title: "Pompeii - Campania - Italy",
-    titlePL: "Pompeii - Campania - Włochy",
+    titlePL: "Pompeje - Campania - Włochy",
     datetime: "2024-05-04T12:11:21.000Z",
     type: "can"
   },
@@ -2142,7 +2142,7 @@ markers = [
     photo: "photos/tomasz/neapol.jpg",
     author: "Tomasz",
     title: "Naples - Italy",
-    titlePL: "Naples - Włochy",
+    titlePL: "Neapol - Włochy",
     datetime: "2024-05-07T18:03:45.000Z",
     type: "can"
   },
@@ -2202,7 +2202,7 @@ markers = [
     photo: "photos/baltic.jpg",
     author: "Dulek",
     title: "Baltic Sea",
-    titlePL: "Baltic Sea",
+    titlePL: "Morze Bałtyckie",
     datetime: "2025-03-29T22:23:20.000Z",
     type: "can"
   },
@@ -2272,7 +2272,7 @@ markers = [
     photo: "photos/klaipeda.jpg",
     author: "Dulek",
     title: "Klaipeda - Lithuania",
-    titlePL: "Klaipeda - Litwa",
+    titlePL: "Kłajpeda - Litwa",
     datetime: "2024-04-27T19:00:36.000Z",
     type: "bottle"
   },
@@ -2282,7 +2282,7 @@ markers = [
     photo: "photos/riga.jpg",
     author: "Dulek",
     title: "Riga - Latvia",
-    titlePL: "Riga - Łotwa",
+    titlePL: "Ryga - Łotwa",
     datetime: "2024-04-29T19:00:36.000Z",
     type: "bottle"
   },
@@ -2312,7 +2312,7 @@ markers = [
     photo: "photos/tomasz/mediolan.jpg",
     author: "Tomasz",
     title: "Duomo St. Maria Nascente - Milan - Italy",
-    titlePL: "Duomo St. Maria Nascente - Milan - Włochy",
+    titlePL: "Katedra Narodzin św. Marii - Mediolan - Włochy",
     datetime: "2025-01-29T10:02:59.000Z",
     type: "can"
   },
@@ -2354,7 +2354,7 @@ markers = [
     photo: "photos/tomasz/hanoi.jpg",
     author: "Tomasz",
     title: "Temple of Literature, Khue Van Cac - Hanoi - Vietnam",
-    titlePL: "Temple of Literature, Khue Van Cac - Hanoi - Wietnam",
+    titlePL: "Świątynia Literatury, Khue Van Cac - Hanoi - Wietnam",
     datetime: "2025-02-10T07:21:07.000Z",
     type: "can"
   },
