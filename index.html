@@ -19,7 +19,7 @@
   <div class="sidebar-header">
     <h2 id="locationsTitle">Locations</h2>
     <div class="header-buttons">
-      <button id="toggleAllGroups" class="toggle-all-button" title="Expand/Collapse All">⇅</button>
+      <button id="toggleAllGroups" class="toggle-all-button" title="Collapse All">▼</button>
       <button id="sidebarClose" class="sidebar-close">×</button>
     </div>
   </div>
@@ -86,8 +86,14 @@
 <script>
   var map = L.map('map',{
     center: [53, 10],
-    zoom: 3
+    zoom: 3,
+    zoomControl: false
   });
+
+  // Add zoom control on the right side
+  L.control.zoom({
+    position: 'topright'
+  }).addTo(map);
 
   var beerBottleIcon = L.icon({
     iconUrl: 'images/icon3.png',
@@ -248,9 +254,9 @@
 
       map.closePopup();
 
-      // Position marker at 1/3 from bottom (2/3 from top)
+      // Position marker at 1/3 from bottom (closer to bottom to leave room for popup)
       var mapHeight = map.getSize().y;
-      var targetY = mapHeight * (2/3);
+      var targetY = mapHeight * 0.75; // 3/4 from top = 1/4 from bottom
       var point = map.project([ref.data.latitude, ref.data.longitude], map.getZoom());
       point.y -= (mapHeight / 2 - targetY);
       var newCenter = map.unproject(point, map.getZoom());
@@ -572,6 +578,7 @@
         }
       });
       allGroupsExpanded = false;
+      toggleAllButton.textContent = '▶';
       toggleAllButton.title = t('expandAll');
     } else {
       // Expand all
@@ -582,6 +589,7 @@
         }
       });
       allGroupsExpanded = true;
+      toggleAllButton.textContent = '▼';
       toggleAllButton.title = t('collapseAll');
     }
   });
@@ -591,6 +599,7 @@
   renderMarkerList = function() {
     originalRenderMarkerList();
     allGroupsExpanded = true;
+    toggleAllButton.textContent = '▼';
     toggleAllButton.title = t('collapseAll');
   };
 
