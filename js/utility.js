@@ -26,7 +26,9 @@ var translations = {
     cityAZ: "Miasto (A-Z)",
     cityZA: "Miasto (Z-A)",
     dateOldest: "Data (Najstarsze)",
-    dateNewest: "Data (Najnowsze)"
+    dateNewest: "Data (Najnowsze)",
+    collapseAll: "Zwiń wszystkie",
+    expandAll: "Rozwiń wszystkie"
   },
   en: {
     settings: "Settings",
@@ -47,7 +49,9 @@ var translations = {
     cityAZ: "City (A-Z)",
     cityZA: "City (Z-A)",
     dateOldest: "Date (Oldest)",
-    dateNewest: "Date (Newest)"
+    dateNewest: "Date (Newest)",
+    collapseAll: "Collapse All",
+    expandAll: "Expand All"
   }
 };
 

@@ -18,7 +18,10 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-header">
     <h2 id="locationsTitle">Locations</h2>
-    <button id="sidebarClose" class="sidebar-close">×</button>
+    <div class="header-buttons">
+      <button id="toggleAllGroups" class="toggle-all-button" title="Expand/Collapse All">⇅</button>
+      <button id="sidebarClose" class="sidebar-close">×</button>
+    </div>
   </div>
 
   <div class="controls-header collapsed" id="controlsHeader">
@@ -206,7 +209,7 @@
   };
 
   // Function to create marker item element
-  function createMarkerItem(markerRef, index) {
+  function createMarkerItem(markerRef, index, hideAuthor) {
     var markerItem = document.createElement('div');
     markerItem.className = 'marker-item';
     markerItem.dataset.index = index;
@@ -216,10 +219,21 @@
     titleDiv.textContent = markerRef.title;
     markerItem.appendChild(titleDiv);
 
-    var authorDiv = document.createElement('div');
-    authorDiv.className = 'marker-item-author';
-    authorDiv.textContent = markerRef.data.author;
-    markerItem.appendChild(authorDiv);
+    // Show author only if not grouped by author
+    if (!hideAuthor) {
+      var authorDiv = document.createElement('div');
+      authorDiv.className = 'marker-item-author';
+      authorDiv.textContent = '📷 ' + markerRef.data.author;
+      markerItem.appendChild(authorDiv);
+    }
+
+    // Add date if available
+    if (markerRef.data.datetime) {
+      var dateDiv = document.createElement('div');
+      dateDiv.className = 'marker-item-date';
+      dateDiv.textContent = '🗓️ ' + displayDate(markerRef.data.datetime);
+      markerItem.appendChild(dateDiv);
+    }
 
     if (markerRef.comment) {
       var commentDiv = document.createElement('div');
@@ -233,8 +247,15 @@
       var ref = leafletMarkers[idx];
 
       map.closePopup();
-      var targetLat = ref.data.latitude - 0.3;
-      map.setView([targetLat, ref.data.longitude], 8);
+
+      // Position marker at 1/3 from bottom (2/3 from top)
+      var mapHeight = map.getSize().y;
+      var targetY = mapHeight * (2/3);
+      var point = map.project([ref.data.latitude, ref.data.longitude], map.getZoom());
+      point.y -= (mapHeight / 2 - targetY);
+      var newCenter = map.unproject(point, map.getZoom());
+
+      map.setView(newCenter, 8);
       ref.marker.openPopup();
 
       if (window.innerWidth < 768) {
@@ -314,7 +335,7 @@
     if (!filterState.groupByAuthor && !filterState.groupByCountry && !filterState.groupByCity) {
       // No grouping - just show all markers
       for (var i = 0; i < sorted.length; i++) {
-        markerListDiv.appendChild(createMarkerItem(sorted[i], sorted[i].originalIndex));
+        markerListDiv.appendChild(createMarkerItem(sorted[i], sorted[i].originalIndex, false));
       }
     } else if (filterState.groupByAuthor) {
       // Group by author only
@@ -326,7 +347,7 @@
       }
 
       for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName]);
+        renderGroup(markerListDiv, groupName, groups[groupName], true);
       }
     } else if (filterState.groupByCountry && filterState.groupByCity) {
       // Group by country, then by city
@@ -351,7 +372,7 @@
         }
 
         for (var city in cityGroups) {
-          renderGroup(countryContent, city, cityGroups[city]);
+          renderGroup(countryContent, city, cityGroups[city], false);
         }
 
         // Add collapse functionality to country header
@@ -373,7 +394,7 @@
       }
 
       for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName]);
+        renderGroup(markerListDiv, groupName, groups[groupName], false);
       }
     } else if (filterState.groupByCity) {
       // Group by city only
@@ -385,7 +406,7 @@
       }
 
       for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName]);
+        renderGroup(markerListDiv, groupName, groups[groupName], false);
       }
     }
   }
@@ -410,13 +431,13 @@
   }
 
   // Function to render a group
-  function renderGroup(parent, groupName, markers) {
+  function renderGroup(parent, groupName, markers, hideAuthor) {
     var header = createGroupHeader(groupName, markers.length);
     var content = document.createElement('div');
     content.className = 'group-content';
 
     for (var i = 0; i < markers.length; i++) {
-      content.appendChild(createMarkerItem(markers[i], markers[i].originalIndex));
+      content.appendChild(createMarkerItem(markers[i], markers[i].originalIndex, hideAuthor));
     }
 
     header.addEventListener('click', function() {
@@ -534,6 +555,44 @@
 
   // Call initialization after DOM is ready
   initializeTranslations();
+
+  // Toggle all groups functionality
+  var toggleAllButton = document.getElementById('toggleAllGroups');
+  var allGroupsExpanded = true; // Track state
+
+  toggleAllButton.addEventListener('click', function() {
+    var allHeaders = document.querySelectorAll('.group-header');
+
+    if (allGroupsExpanded) {
+      // Collapse all
+      allHeaders.forEach(function(header) {
+        header.classList.add('collapsed');
+        if (header.nextElementSibling) {
+          header.nextElementSibling.classList.add('hidden');
+        }
+      });
+      allGroupsExpanded = false;
+      toggleAllButton.title = t('expandAll');
+    } else {
+      // Expand all
+      allHeaders.forEach(function(header) {
+        header.classList.remove('collapsed');
+        if (header.nextElementSibling) {
+          header.nextElementSibling.classList.remove('hidden');
+        }
+      });
+      allGroupsExpanded = true;
+      toggleAllButton.title = t('collapseAll');
+    }
+  });
+
+  // Reset toggle state when filters change
+  var originalRenderMarkerList = renderMarkerList;
+  renderMarkerList = function() {
+    originalRenderMarkerList();
+    allGroupsExpanded = true;
+    toggleAllButton.title = t('collapseAll');
+  };
 
 </script>
 

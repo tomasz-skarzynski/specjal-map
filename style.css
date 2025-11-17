@@ -52,6 +52,34 @@ h1 {
   font-variant: small-caps;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.toggle-all-button {
+  background: none;
+  border: 1px solid #555;
+  color: white;
+  font-size: 1.3em;
+  cursor: pointer;
+  padding: 4px 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.toggle-all-button:hover {
+  background-color: #2a2a2a;
+  border-color: #777;
+  transform: scale(1.1);
+}
+
 .sidebar-close {
   background: none;
   border: none;
@@ -102,6 +130,12 @@ h1 {
 .marker-item-author {
   color: #aaa;
   font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.marker-item-date {
+  color: #888;
+  font-size: 0.85em;
   margin-bottom: 5px;
 }
 
