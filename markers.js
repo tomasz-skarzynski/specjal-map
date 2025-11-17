@@ -1267,8 +1267,8 @@ markers = [
     longitude: 19.033060896395778,
     photo: "photos/tomasz/katowice-wieza-na-spodek.jpg",
     author: "Tomasz",
-    title: "Wieża szybu Warszawa II - widok na Spodek - Katowice - Poland",
-    titlePL: "Wieża szybu Warszawa II - widok na Spodek - Katowice - Polska",
+    title: "Wieża szybu Warszawa II, widok na Spodek - Katowice - Poland",
+    titlePL: "Wieża szybu Warszawa II, widok na Spodek - Katowice - Polska",
     datetime: "2019-10-27T15:10:02.000Z",
     type: "can"
   },
@@ -1417,8 +1417,8 @@ markers = [
     longitude: -3.1644553029726867,
     photo: "photos/marcin/cardiff.jpg",
     author: "Marcin",
-    title: "Wales Millennium Centre - Cardiff",
-    titlePL: "Wales Millennium Centre - Cardiff",
+    title: "Wales Millennium Centre - Cardiff - Walia, UK",
+    titlePL: "Wales Millennium Centre - Cardiff - Walia, Wielka Brytania",
     type: "can"
   },
   {
@@ -1990,7 +1990,7 @@ markers = [
     photo: "photos/tomasz/dubrownik.jpg",
     author: "Tomasz",
     title: "Jesuit Stairs - Dubrovnik - Croatia",
-    titlePL: "Jesuit Stairs - Dubrovnik - Chorwacja",
+    titlePL: "Jesuit Stairs - Dubrownik - Chorwacja",
     commentPL: "Położone w sercu Dubrownika schody Jezuitów to słynne miejsce kręcenia scen do serialu \"Gra o Tron\". To tutaj rozpoczyna się ikoniczna scena \"Marszu Wstydu\", w której Cersei stoi na szczycie schodów, zanim zejdzie, naga w niesławie, ulicami Królewskiej Przystani.",
     comment: "Located in the heart of Dubrovnik, the Jesuit Stairs are a famous filming location from Game of Thrones. This is where the iconic \"Walk of Shame\" scene begins, with Cersei standing at the top before descending through the streets of King's Landing.",
     datetime: "2023-09-11T12:07:12.000Z",
@@ -2032,7 +2032,7 @@ markers = [
     photo: "photos/tomasz/tuluza.jpg",
     author: "Tomasz",
     title: "Basilica de Sant Sarnin - Toulouse - France",
-    titlePL: "Basilica de Sant Sarnin - Toulouse - Francja",
+    titlePL: "Bazylika św. Saturnina - Tuluza - Francja",
     datetime: "2023-11-11T10:26:26.000Z",
     type: "can"
   },
@@ -2042,7 +2042,7 @@ markers = [
     photo: "photos/tomasz/tuluza-garona.jpg",
     author: "Tomasz",
     title: "Garonne - Toulouse - France",
-    titlePL: "Garonne - Toulouse - Francja",
+    titlePL: "Garonna - Tuluza - Francja",
     datetime: "2023-11-11T10:56:27.000Z",
     type: "can"
   },
@@ -2052,7 +2052,7 @@ markers = [
     photo: "photos/tomasz/kopenhaga.jpg",
     author: "Tomasz",
     title: "Copenhagen - Denmark",
-    titlePL: "Copenhagen - Dania",
+    titlePL: "Kopenhaga - Dania",
     datetime: "2024-01-05T14:00:00.000Z",
     type: "can"
   },
@@ -2062,7 +2062,7 @@ markers = [
     photo: "photos/tomasz/kopenhaga2.jpg",
     author: "Tomasz",
     title: "Copenhagen - Denmark",
-    titlePL: "Copenhagen - Dania",
+    titlePL: "Kopenhaga - Dania",
     datetime: "2024-01-05T13:55:00.000Z",
     type: "can"
   },

@@ -254,9 +254,8 @@
 
       map.closePopup();
 
-      // Position marker at 1/3 from bottom (closer to bottom to leave room for popup)
       var mapHeight = map.getSize().y;
-      var targetY = mapHeight * 0.75; // 3/4 from top = 1/4 from bottom
+      var targetY = mapHeight * 0.36;
       var point = map.project([ref.data.latitude, ref.data.longitude], map.getZoom());
       point.y -= (mapHeight / 2 - targetY);
       var newCenter = map.unproject(point, map.getZoom());
