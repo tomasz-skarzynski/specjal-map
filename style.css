@@ -74,6 +74,10 @@ h1 {
   border-radius: 4px;
 }
 
+.toggle-all-button.hidden {
+  display: none;
+}
+
 .toggle-all-button:hover {
   background-color: #2a2a2a;
   border-color: #777;

@@ -336,35 +336,54 @@
     var markerListDiv = document.getElementById('markerList');
     markerListDiv.innerHTML = '';
 
-    var sorted = sortMarkers(leafletMarkers, filterState.sortBy);
+    var hasGrouping = filterState.groupByAuthor || filterState.groupByCountry || filterState.groupByCity;
 
-    if (!filterState.groupByAuthor && !filterState.groupByCountry && !filterState.groupByCity) {
-      // No grouping - just show all markers
+    // Show/hide toggle all button based on grouping
+    var toggleAllButton = document.getElementById('toggleAllGroups');
+    if (hasGrouping) {
+      toggleAllButton.classList.remove('hidden');
+    } else {
+      toggleAllButton.classList.add('hidden');
+    }
+
+    if (!hasGrouping) {
+      // No grouping - just show all markers sorted
+      var sorted = sortMarkers(leafletMarkers, filterState.sortBy);
       for (var i = 0; i < sorted.length; i++) {
         markerListDiv.appendChild(createMarkerItem(sorted[i], sorted[i].originalIndex, false));
       }
     } else if (filterState.groupByAuthor) {
       // Group by author only
       var groups = {};
-      for (var i = 0; i < sorted.length; i++) {
-        var author = sorted[i].data.author;
+      for (var i = 0; i < leafletMarkers.length; i++) {
+        var author = leafletMarkers[i].data.author;
         if (!groups[author]) groups[author] = [];
-        groups[author].push(sorted[i]);
+        groups[author].push(leafletMarkers[i]);
       }
 
-      for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName], true);
+      // Sort group names alphabetically
+      var groupNames = Object.keys(groups).sort();
+
+      for (var j = 0; j < groupNames.length; j++) {
+        var groupName = groupNames[j];
+        // Sort items within each group
+        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        renderGroup(markerListDiv, groupName, sortedGroup, true);
       }
     } else if (filterState.groupByCountry && filterState.groupByCity) {
       // Group by country, then by city
       var countryGroups = {};
-      for (var i = 0; i < sorted.length; i++) {
-        var country = sorted[i].parsed.country || 'Unknown';
+      for (var i = 0; i < leafletMarkers.length; i++) {
+        var country = leafletMarkers[i].parsed.country || 'Unknown';
         if (!countryGroups[country]) countryGroups[country] = [];
-        countryGroups[country].push(sorted[i]);
+        countryGroups[country].push(leafletMarkers[i]);
       }
 
-      for (var country in countryGroups) {
+      // Sort countries alphabetically
+      var countryNames = Object.keys(countryGroups).sort();
+
+      for (var j = 0; j < countryNames.length; j++) {
+        var country = countryNames[j];
         var countryDiv = createGroupHeader(country, countryGroups[country].length);
         var countryContent = document.createElement('div');
         countryContent.className = 'group-content';
@@ -377,8 +396,14 @@
           cityGroups[city].push(countryGroups[country][i]);
         }
 
-        for (var city in cityGroups) {
-          renderGroup(countryContent, city, cityGroups[city], false);
+        // Sort cities alphabetically
+        var cityNames = Object.keys(cityGroups).sort();
+
+        for (var k = 0; k < cityNames.length; k++) {
+          var city = cityNames[k];
+          // Sort items within each city
+          var sortedGroup = sortMarkers(cityGroups[city], filterState.sortBy);
+          renderGroup(countryContent, city, sortedGroup, false);
         }
 
         // Add collapse functionality to country header
@@ -393,26 +418,38 @@
     } else if (filterState.groupByCountry) {
       // Group by country only
       var groups = {};
-      for (var i = 0; i < sorted.length; i++) {
-        var country = sorted[i].parsed.country || 'Unknown';
+      for (var i = 0; i < leafletMarkers.length; i++) {
+        var country = leafletMarkers[i].parsed.country || 'Unknown';
         if (!groups[country]) groups[country] = [];
-        groups[country].push(sorted[i]);
+        groups[country].push(leafletMarkers[i]);
       }
 
-      for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName], false);
+      // Sort group names alphabetically
+      var groupNames = Object.keys(groups).sort();
+
+      for (var j = 0; j < groupNames.length; j++) {
+        var groupName = groupNames[j];
+        // Sort items within each group
+        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        renderGroup(markerListDiv, groupName, sortedGroup, false);
       }
     } else if (filterState.groupByCity) {
       // Group by city only
       var groups = {};
-      for (var i = 0; i < sorted.length; i++) {
-        var city = sorted[i].parsed.city || 'Unknown';
+      for (var i = 0; i < leafletMarkers.length; i++) {
+        var city = leafletMarkers[i].parsed.city || 'Unknown';
         if (!groups[city]) groups[city] = [];
-        groups[city].push(sorted[i]);
+        groups[city].push(leafletMarkers[i]);
       }
 
-      for (var groupName in groups) {
-        renderGroup(markerListDiv, groupName, groups[groupName], false);
+      // Sort group names alphabetically
+      var groupNames = Object.keys(groups).sort();
+
+      for (var j = 0; j < groupNames.length; j++) {
+        var groupName = groupNames[j];
+        // Sort items within each group
+        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        renderGroup(markerListDiv, groupName, sortedGroup, false);
       }
     }
   }
@@ -598,9 +635,13 @@
   var originalRenderMarkerList = renderMarkerList;
   renderMarkerList = function() {
     originalRenderMarkerList();
-    allGroupsExpanded = true;
-    toggleAllButton.textContent = '▼';
-    toggleAllButton.title = t('collapseAll');
+    // Reset toggle state only if there is grouping
+    var hasGrouping = filterState.groupByAuthor || filterState.groupByCountry || filterState.groupByCity;
+    if (hasGrouping) {
+      allGroupsExpanded = true;
+      toggleAllButton.textContent = '▼';
+      toggleAllButton.title = t('collapseAll');
+    }
   };
 
 </script>
