@@ -361,13 +361,22 @@
         groups[author].push(leafletMarkers[i]);
       }
 
-      // Sort group names alphabetically
-      var groupNames = Object.keys(groups).sort();
+      // Sort group names - respect author sorting if selected
+      var groupNames = Object.keys(groups);
+      if (filterState.sortBy === 'author-asc') {
+        groupNames.sort();
+      } else if (filterState.sortBy === 'author-desc') {
+        groupNames.sort().reverse();
+      } else {
+        groupNames.sort(); // Default alphabetical
+      }
 
       for (var j = 0; j < groupNames.length; j++) {
         var groupName = groupNames[j];
-        // Sort items within each group
-        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        // Sort items within each group (only if not sorting by author)
+        var sortedGroup = (filterState.sortBy.startsWith('author-'))
+          ? groups[groupName]
+          : sortMarkers(groups[groupName], filterState.sortBy);
         renderGroup(markerListDiv, groupName, sortedGroup, true);
       }
     } else if (filterState.groupByCountry && filterState.groupByCity) {
@@ -379,8 +388,15 @@
         countryGroups[country].push(leafletMarkers[i]);
       }
 
-      // Sort countries alphabetically
-      var countryNames = Object.keys(countryGroups).sort();
+      // Sort countries - respect country sorting if selected
+      var countryNames = Object.keys(countryGroups);
+      if (filterState.sortBy === 'country-asc') {
+        countryNames.sort();
+      } else if (filterState.sortBy === 'country-desc') {
+        countryNames.sort().reverse();
+      } else {
+        countryNames.sort(); // Default alphabetical
+      }
 
       for (var j = 0; j < countryNames.length; j++) {
         var country = countryNames[j];
@@ -396,13 +412,22 @@
           cityGroups[city].push(countryGroups[country][i]);
         }
 
-        // Sort cities alphabetically
-        var cityNames = Object.keys(cityGroups).sort();
+        // Sort cities - respect city sorting if selected
+        var cityNames = Object.keys(cityGroups);
+        if (filterState.sortBy === 'city-asc') {
+          cityNames.sort();
+        } else if (filterState.sortBy === 'city-desc') {
+          cityNames.sort().reverse();
+        } else {
+          cityNames.sort(); // Default alphabetical
+        }
 
         for (var k = 0; k < cityNames.length; k++) {
           var city = cityNames[k];
-          // Sort items within each city
-          var sortedGroup = sortMarkers(cityGroups[city], filterState.sortBy);
+          // Sort items within each city (only if not sorting by country or city)
+          var sortedGroup = (filterState.sortBy.startsWith('country-') || filterState.sortBy.startsWith('city-'))
+            ? cityGroups[city]
+            : sortMarkers(cityGroups[city], filterState.sortBy);
           renderGroup(countryContent, city, sortedGroup, false);
         }
 
@@ -424,13 +449,22 @@
         groups[country].push(leafletMarkers[i]);
       }
 
-      // Sort group names alphabetically
-      var groupNames = Object.keys(groups).sort();
+      // Sort group names - respect country sorting if selected
+      var groupNames = Object.keys(groups);
+      if (filterState.sortBy === 'country-asc') {
+        groupNames.sort();
+      } else if (filterState.sortBy === 'country-desc') {
+        groupNames.sort().reverse();
+      } else {
+        groupNames.sort(); // Default alphabetical
+      }
 
       for (var j = 0; j < groupNames.length; j++) {
         var groupName = groupNames[j];
-        // Sort items within each group
-        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        // Sort items within each group (only if not sorting by country)
+        var sortedGroup = (filterState.sortBy.startsWith('country-'))
+          ? groups[groupName]
+          : sortMarkers(groups[groupName], filterState.sortBy);
         renderGroup(markerListDiv, groupName, sortedGroup, false);
       }
     } else if (filterState.groupByCity) {
@@ -442,13 +476,22 @@
         groups[city].push(leafletMarkers[i]);
       }
 
-      // Sort group names alphabetically
-      var groupNames = Object.keys(groups).sort();
+      // Sort group names - respect city sorting if selected
+      var groupNames = Object.keys(groups);
+      if (filterState.sortBy === 'city-asc') {
+        groupNames.sort();
+      } else if (filterState.sortBy === 'city-desc') {
+        groupNames.sort().reverse();
+      } else {
+        groupNames.sort(); // Default alphabetical
+      }
 
       for (var j = 0; j < groupNames.length; j++) {
         var groupName = groupNames[j];
-        // Sort items within each group
-        var sortedGroup = sortMarkers(groups[groupName], filterState.sortBy);
+        // Sort items within each group (only if not sorting by city)
+        var sortedGroup = (filterState.sortBy.startsWith('city-'))
+          ? groups[groupName]
+          : sortMarkers(groups[groupName], filterState.sortBy);
         renderGroup(markerListDiv, groupName, sortedGroup, false);
       }
     }
