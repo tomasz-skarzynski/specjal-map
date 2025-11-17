@@ -279,35 +279,35 @@
 
     if (sortBy === 'author-asc') {
       sorted.sort(function(a, b) {
-        return a.data.author.localeCompare(b.data.author);
+        return a.data.author.localeCompare(b.data.author, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'author-desc') {
       sorted.sort(function(a, b) {
-        return b.data.author.localeCompare(a.data.author);
+        return b.data.author.localeCompare(a.data.author, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'country-asc') {
       sorted.sort(function(a, b) {
         var countryA = a.parsed.country || 'Unknown';
         var countryB = b.parsed.country || 'Unknown';
-        return countryA.localeCompare(countryB);
+        return countryA.localeCompare(countryB, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'country-desc') {
       sorted.sort(function(a, b) {
         var countryA = a.parsed.country || 'Unknown';
         var countryB = b.parsed.country || 'Unknown';
-        return countryB.localeCompare(countryA);
+        return countryB.localeCompare(countryA, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'city-asc') {
       sorted.sort(function(a, b) {
         var cityA = a.parsed.city || 'Unknown';
         var cityB = b.parsed.city || 'Unknown';
-        return cityA.localeCompare(cityB);
+        return cityA.localeCompare(cityB, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'city-desc') {
       sorted.sort(function(a, b) {
         var cityA = a.parsed.city || 'Unknown';
         var cityB = b.parsed.city || 'Unknown';
-        return cityB.localeCompare(cityA);
+        return cityB.localeCompare(cityA, 'pl', { sensitivity: 'accent' });
       });
     } else if (sortBy === 'date-asc') {
       sorted.sort(function(a, b) {
@@ -364,11 +364,17 @@
       // Sort group names - respect author sorting if selected
       var groupNames = Object.keys(groups);
       if (filterState.sortBy === 'author-asc') {
-        groupNames.sort();
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        });
       } else if (filterState.sortBy === 'author-desc') {
-        groupNames.sort().reverse();
+        groupNames.sort(function(a, b) {
+          return b.localeCompare(a, 'pl', { sensitivity: 'accent' });
+        });
       } else {
-        groupNames.sort(); // Default alphabetical
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        }); // Default alphabetical
       }
 
       for (var j = 0; j < groupNames.length; j++) {
@@ -391,11 +397,17 @@
       // Sort countries - respect country sorting if selected
       var countryNames = Object.keys(countryGroups);
       if (filterState.sortBy === 'country-asc') {
-        countryNames.sort();
+        countryNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        });
       } else if (filterState.sortBy === 'country-desc') {
-        countryNames.sort().reverse();
+        countryNames.sort(function(a, b) {
+          return b.localeCompare(a, 'pl', { sensitivity: 'accent' });
+        });
       } else {
-        countryNames.sort(); // Default alphabetical
+        countryNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        }); // Default alphabetical
       }
 
       for (var j = 0; j < countryNames.length; j++) {
@@ -415,11 +427,17 @@
         // Sort cities - respect city sorting if selected
         var cityNames = Object.keys(cityGroups);
         if (filterState.sortBy === 'city-asc') {
-          cityNames.sort();
+          cityNames.sort(function(a, b) {
+            return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+          });
         } else if (filterState.sortBy === 'city-desc') {
-          cityNames.sort().reverse();
+          cityNames.sort(function(a, b) {
+            return b.localeCompare(a, 'pl', { sensitivity: 'accent' });
+          });
         } else {
-          cityNames.sort(); // Default alphabetical
+          cityNames.sort(function(a, b) {
+            return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+          }); // Default alphabetical
         }
 
         for (var k = 0; k < cityNames.length; k++) {
@@ -452,11 +470,17 @@
       // Sort group names - respect country sorting if selected
       var groupNames = Object.keys(groups);
       if (filterState.sortBy === 'country-asc') {
-        groupNames.sort();
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        });
       } else if (filterState.sortBy === 'country-desc') {
-        groupNames.sort().reverse();
+        groupNames.sort(function(a, b) {
+          return b.localeCompare(a, 'pl', { sensitivity: 'accent' });
+        });
       } else {
-        groupNames.sort(); // Default alphabetical
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        }); // Default alphabetical
       }
 
       for (var j = 0; j < groupNames.length; j++) {
@@ -479,11 +503,17 @@
       // Sort group names - respect city sorting if selected
       var groupNames = Object.keys(groups);
       if (filterState.sortBy === 'city-asc') {
-        groupNames.sort();
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        });
       } else if (filterState.sortBy === 'city-desc') {
-        groupNames.sort().reverse();
+        groupNames.sort(function(a, b) {
+          return b.localeCompare(a, 'pl', { sensitivity: 'accent' });
+        });
       } else {
-        groupNames.sort(); // Default alphabetical
+        groupNames.sort(function(a, b) {
+          return a.localeCompare(b, 'pl', { sensitivity: 'accent' });
+        }); // Default alphabetical
       }
 
       for (var j = 0; j < groupNames.length; j++) {
