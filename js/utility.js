@@ -1,5 +1,67 @@
-var language = navigator.language || navigator.userLanguage;
-var language = (language === "pl") ? "pl" : "en";
+// Language detection and management
+var defaultLanguage = navigator.language || navigator.userLanguage;
+defaultLanguage = (defaultLanguage.startsWith("pl")) ? "pl" : "en";
+
+// Get language from localStorage or use default
+var language = localStorage.getItem('specjal-language') || defaultLanguage;
+
+// Translations object
+var translations = {
+  pl: {
+    settings: "Ustawienia",
+    locations: "Lokalizacje",
+    languageLabel: "Język UI",
+    polish: "Polski",
+    english: "Angielski",
+    groupBy: "Grupuj według:",
+    author: "Autor",
+    country: "Kraj",
+    city: "Miasto",
+    sortBy: "Sortuj według:",
+    orderAdded: "Kolejność dodania",
+    authorAZ: "Autor (A-Z)",
+    authorZA: "Autor (Z-A)",
+    countryAZ: "Kraj (A-Z)",
+    countryZA: "Kraj (Z-A)",
+    cityAZ: "Miasto (A-Z)",
+    cityZA: "Miasto (Z-A)",
+    dateOldest: "Data (Najstarsze)",
+    dateNewest: "Data (Najnowsze)"
+  },
+  en: {
+    settings: "Settings",
+    locations: "Locations",
+    languageLabel: "UI Language",
+    polish: "Polish",
+    english: "English",
+    groupBy: "Group by:",
+    author: "Author",
+    country: "Country",
+    city: "City",
+    sortBy: "Sort by:",
+    orderAdded: "Order Added",
+    authorAZ: "Author (A-Z)",
+    authorZA: "Author (Z-A)",
+    countryAZ: "Country (A-Z)",
+    countryZA: "Country (Z-A)",
+    cityAZ: "City (A-Z)",
+    cityZA: "City (Z-A)",
+    dateOldest: "Date (Oldest)",
+    dateNewest: "Date (Newest)"
+  }
+};
+
+// Get translation
+function t(key) {
+  return translations[language][key] || key;
+}
+
+// Set language
+function setLanguage(lang) {
+  language = lang;
+  localStorage.setItem('specjal-language', lang);
+  location.reload(); // Reload page to apply language changes
+}
 
 function displayDate(datetimeJson) {
   var datetime = new Date(datetimeJson);

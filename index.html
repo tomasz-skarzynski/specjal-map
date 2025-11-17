@@ -17,49 +17,61 @@
 
 <div id="sidebar" class="sidebar">
   <div class="sidebar-header">
-    <h2>Locations</h2>
+    <h2 id="locationsTitle">Locations</h2>
     <button id="sidebarClose" class="sidebar-close">×</button>
   </div>
 
   <div class="controls-header collapsed" id="controlsHeader">
-    <span class="controls-header-title">Filters & Sort</span>
+    <span class="controls-header-title" id="settingsTitle">Settings</span>
     <span class="controls-header-arrow">▼</span>
   </div>
 
   <div class="sidebar-controls hidden" id="sidebarControls">
     <div class="control-section">
-      <label class="control-label">Group by:</label>
+      <label class="control-label" id="languageLabel">UI Language:</label>
+      <div class="language-selector">
+        <button id="langPL" class="language-button" onclick="setLanguage('pl')">
+          <img src="images/pl.png" alt="PL" class="flag-icon"> <span id="polishLabel">Polski</span>
+        </button>
+        <button id="langEN" class="language-button" onclick="setLanguage('en')">
+          <img src="images/en.png" alt="EN" class="flag-icon"> <span id="englishLabel">English</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <label class="control-label" id="groupByLabel">Group by:</label>
       <div class="toggle-group">
         <label class="toggle-container">
           <input type="checkbox" id="toggleAuthor" class="toggle-input">
           <span class="toggle-slider"></span>
-          <span class="toggle-label">Author</span>
+          <span class="toggle-label" id="authorToggle">Author</span>
         </label>
         <label class="toggle-container">
           <input type="checkbox" id="toggleCountry" class="toggle-input">
           <span class="toggle-slider"></span>
-          <span class="toggle-label">Country</span>
+          <span class="toggle-label" id="countryToggle">Country</span>
         </label>
         <label class="toggle-container">
           <input type="checkbox" id="toggleCity" class="toggle-input">
           <span class="toggle-slider"></span>
-          <span class="toggle-label">City</span>
+          <span class="toggle-label" id="cityToggle">City</span>
         </label>
       </div>
     </div>
 
     <div class="control-section">
-      <label class="control-label">Sort by:</label>
+      <label class="control-label" id="sortByLabel">Sort by:</label>
       <select id="sortSelect" class="sort-select">
-        <option value="order">Order Added</option>
-        <option value="author-asc">Author (A-Z)</option>
-        <option value="author-desc">Author (Z-A)</option>
-        <option value="country-asc">Country (A-Z)</option>
-        <option value="country-desc">Country (Z-A)</option>
-        <option value="city-asc">City (A-Z)</option>
-        <option value="city-desc">City (Z-A)</option>
-        <option value="date-asc">Date (Oldest)</option>
-        <option value="date-desc">Date (Newest)</option>
+        <option value="order" id="optionOrder">Order Added</option>
+        <option value="author-asc" id="optionAuthorAsc">Author (A-Z)</option>
+        <option value="author-desc" id="optionAuthorDesc">Author (Z-A)</option>
+        <option value="country-asc" id="optionCountryAsc">Country (A-Z)</option>
+        <option value="country-desc" id="optionCountryDesc">Country (Z-A)</option>
+        <option value="city-asc" id="optionCityAsc">City (A-Z)</option>
+        <option value="city-desc" id="optionCityDesc">City (Z-A)</option>
+        <option value="date-asc" id="optionDateAsc">Date (Oldest)</option>
+        <option value="date-desc" id="optionDateDesc">Date (Newest)</option>
       </select>
     </div>
   </div>
@@ -141,12 +153,14 @@
   var leafletMarkers = [];
 
   for (var i = 0; i < markers.length; ++i) {
+    // Get title based on language
+    var title = (language === 'pl' && markers[i].titlePL) ? markers[i].titlePL : markers[i].title;
+
+    // Get comment based on language
     var imgTag = '<img style="width: 100%" src="' + markers[i].photo + '"';
     var comment = "";
-    if (language === 'pl' && markers[i].commentPolish) {
-        comment = markers[i].commentPolish;
-    } else if (language === 'en' && markers[i].commentEnglish) {
-        comment = markers[i].commentEnglish;
+    if (language === 'pl' && markers[i].commentPL) {
+        comment = markers[i].commentPL;
     } else if (markers[i].comment) {
         comment = markers[i].comment;
     }
@@ -155,7 +169,7 @@
         imgTag += ' title="'+comment+'"';
     }
     imgTag += '/>';
-    var popupContent = '<h2> ' + markers[i].title + '</h2><a href="' + markers[i].photo + '">'+imgTag+'</a>📷 ' + markers[i].author;
+    var popupContent = '<h2> ' + title + '</h2><a href="' + markers[i].photo + '">'+imgTag+'</a>📷 ' + markers[i].author;
     if (markers[i].datetime) {
         popupContent += '<br>🗓️ ' + displayDate(markers[i].datetime);
     }
@@ -176,9 +190,10 @@
     leafletMarkers.push({
       marker: leafletMarker,
       data: markers[i],
+      title: title,
       comment: comment,
       originalIndex: i,
-      parsed: parseTitle(markers[i].title)
+      parsed: parseTitle(title)
     });
   }
 
@@ -198,7 +213,7 @@
 
     var titleDiv = document.createElement('div');
     titleDiv.className = 'marker-item-title';
-    titleDiv.textContent = markerRef.data.title;
+    titleDiv.textContent = markerRef.title;
     markerItem.appendChild(titleDiv);
 
     var authorDiv = document.createElement('div');
@@ -384,16 +399,11 @@
     titleSpan.className = 'group-header-title';
     titleSpan.textContent = title;
 
-    var countSpan = document.createElement('span');
-    countSpan.className = 'group-header-count';
-    countSpan.textContent = '(' + count + ')';
-
     var arrow = document.createElement('span');
     arrow.className = 'group-header-arrow';
     arrow.textContent = '▼';
 
     header.appendChild(titleSpan);
-    header.appendChild(countSpan);
     header.appendChild(arrow);
 
     return header;
@@ -489,6 +499,41 @@
     filterState.sortBy = this.value;
     renderMarkerList();
   });
+
+  // Initialize UI translations
+  function initializeTranslations() {
+    document.getElementById('locationsTitle').textContent = t('locations');
+    document.getElementById('settingsTitle').textContent = t('settings');
+    document.getElementById('languageLabel').textContent = t('languageLabel') + ':';
+    document.getElementById('polishLabel').textContent = t('polish');
+    document.getElementById('englishLabel').textContent = t('english');
+    document.getElementById('groupByLabel').textContent = t('groupBy');
+    document.getElementById('authorToggle').textContent = t('author');
+    document.getElementById('countryToggle').textContent = t('country');
+    document.getElementById('cityToggle').textContent = t('city');
+    document.getElementById('sortByLabel').textContent = t('sortBy');
+    document.getElementById('optionOrder').textContent = t('orderAdded');
+    document.getElementById('optionAuthorAsc').textContent = t('authorAZ');
+    document.getElementById('optionAuthorDesc').textContent = t('authorZA');
+    document.getElementById('optionCountryAsc').textContent = t('countryAZ');
+    document.getElementById('optionCountryDesc').textContent = t('countryZA');
+    document.getElementById('optionCityAsc').textContent = t('cityAZ');
+    document.getElementById('optionCityDesc').textContent = t('cityZA');
+    document.getElementById('optionDateAsc').textContent = t('dateOldest');
+    document.getElementById('optionDateDesc').textContent = t('dateNewest');
+
+    // Highlight active language button
+    if (language === 'pl') {
+      document.getElementById('langPL').classList.add('active');
+      document.getElementById('langEN').classList.remove('active');
+    } else {
+      document.getElementById('langEN').classList.add('active');
+      document.getElementById('langPL').classList.remove('active');
+    }
+  }
+
+  // Call initialization after DOM is ready
+  initializeTranslations();
 
 </script>
 
