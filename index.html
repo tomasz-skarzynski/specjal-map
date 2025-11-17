@@ -20,6 +20,41 @@
     <h2>Locations</h2>
     <button id="sidebarClose" class="sidebar-close">×</button>
   </div>
+
+  <div class="sidebar-controls">
+    <div class="control-section">
+      <label class="control-label">Group by:</label>
+      <div class="toggle-group">
+        <label class="toggle-container">
+          <input type="checkbox" id="toggleAuthor" class="toggle-input">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Author</span>
+        </label>
+        <label class="toggle-container">
+          <input type="checkbox" id="toggleCountry" class="toggle-input">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Country</span>
+        </label>
+        <label class="toggle-container">
+          <input type="checkbox" id="toggleCity" class="toggle-input">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">City</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <label class="control-label">Sort by:</label>
+      <select id="sortSelect" class="sort-select">
+        <option value="order">Order Added</option>
+        <option value="author-asc">Author (A-Z)</option>
+        <option value="author-desc">Author (Z-A)</option>
+        <option value="date-asc">Date (Oldest)</option>
+        <option value="date-desc">Date (Newest)</option>
+      </select>
+    </div>
+  </div>
+
   <div id="markerList" class="marker-list"></div>
 </div>
 
@@ -132,54 +167,220 @@
     leafletMarkers.push({
       marker: leafletMarker,
       data: markers[i],
-      comment: comment
+      comment: comment,
+      originalIndex: i,
+      parsed: parseTitle(markers[i].title)
     });
   }
 
-  // Populate sidebar with markers
-  var markerListDiv = document.getElementById('markerList');
-  for (var i = 0; i < leafletMarkers.length; ++i) {
+  // Current filter state
+  var filterState = {
+    groupByAuthor: false,
+    groupByCountry: false,
+    groupByCity: false,
+    sortBy: 'order'
+  };
+
+  // Function to create marker item element
+  function createMarkerItem(markerRef, index) {
     var markerItem = document.createElement('div');
     markerItem.className = 'marker-item';
-    markerItem.dataset.index = i;
+    markerItem.dataset.index = index;
 
     var titleDiv = document.createElement('div');
     titleDiv.className = 'marker-item-title';
-    titleDiv.textContent = leafletMarkers[i].data.title;
+    titleDiv.textContent = markerRef.data.title;
     markerItem.appendChild(titleDiv);
 
     var authorDiv = document.createElement('div');
     authorDiv.className = 'marker-item-author';
-    authorDiv.textContent = leafletMarkers[i].data.author;
+    authorDiv.textContent = markerRef.data.author;
     markerItem.appendChild(authorDiv);
 
-    if (leafletMarkers[i].comment) {
+    if (markerRef.comment) {
       var commentDiv = document.createElement('div');
       commentDiv.className = 'marker-item-comment';
-      commentDiv.textContent = leafletMarkers[i].comment;
+      commentDiv.textContent = markerRef.comment;
       markerItem.appendChild(commentDiv);
     }
 
     markerItem.addEventListener('click', function() {
-      var index = parseInt(this.dataset.index);
-      var markerRef = leafletMarkers[index];
+      var idx = parseInt(this.dataset.index);
+      var ref = leafletMarkers[idx];
 
-      // Close all popups
       map.closePopup();
+      var targetLat = ref.data.latitude - 0.15;
+      map.setView([targetLat, ref.data.longitude], 8);
+      ref.marker.openPopup();
 
-      // Center map on marker and open popup
-      map.setView([markerRef.data.latitude, markerRef.data.longitude], 10);
-      markerRef.marker.openPopup();
-
-      // Close sidebar on mobile/smaller screens
       if (window.innerWidth < 768) {
         document.getElementById('sidebar').classList.remove('open');
         document.getElementById('sidebarToggle').classList.remove('hidden');
       }
     });
 
-    markerListDiv.appendChild(markerItem);
+    return markerItem;
   }
+
+  // Function to sort markers
+  function sortMarkers(markersList, sortBy) {
+    var sorted = markersList.slice();
+
+    if (sortBy === 'author-asc') {
+      sorted.sort(function(a, b) {
+        return a.data.author.localeCompare(b.data.author);
+      });
+    } else if (sortBy === 'author-desc') {
+      sorted.sort(function(a, b) {
+        return b.data.author.localeCompare(a.data.author);
+      });
+    } else if (sortBy === 'date-asc') {
+      sorted.sort(function(a, b) {
+        var dateA = a.data.datetime ? new Date(a.data.datetime).getTime() : 0;
+        var dateB = b.data.datetime ? new Date(b.data.datetime).getTime() : 0;
+        return dateA - dateB;
+      });
+    } else if (sortBy === 'date-desc') {
+      sorted.sort(function(a, b) {
+        var dateA = a.data.datetime ? new Date(a.data.datetime).getTime() : 0;
+        var dateB = b.data.datetime ? new Date(b.data.datetime).getTime() : 0;
+        return dateB - dateA;
+      });
+    } else {
+      // 'order' - keep original order
+      sorted.sort(function(a, b) {
+        return a.originalIndex - b.originalIndex;
+      });
+    }
+
+    return sorted;
+  }
+
+  // Function to render the marker list
+  function renderMarkerList() {
+    var markerListDiv = document.getElementById('markerList');
+    markerListDiv.innerHTML = '';
+
+    var sorted = sortMarkers(leafletMarkers, filterState.sortBy);
+
+    if (!filterState.groupByAuthor && !filterState.groupByCountry && !filterState.groupByCity) {
+      // No grouping - just show all markers
+      for (var i = 0; i < sorted.length; i++) {
+        markerListDiv.appendChild(createMarkerItem(sorted[i], sorted[i].originalIndex));
+      }
+    } else if (filterState.groupByAuthor) {
+      // Group by author only
+      var groups = {};
+      for (var i = 0; i < sorted.length; i++) {
+        var author = sorted[i].data.author;
+        if (!groups[author]) groups[author] = [];
+        groups[author].push(sorted[i]);
+      }
+
+      for (var groupName in groups) {
+        renderGroup(markerListDiv, groupName, groups[groupName]);
+      }
+    } else if (filterState.groupByCountry && filterState.groupByCity) {
+      // Group by country, then by city
+      var countryGroups = {};
+      for (var i = 0; i < sorted.length; i++) {
+        var country = sorted[i].parsed.country || 'Unknown';
+        if (!countryGroups[country]) countryGroups[country] = [];
+        countryGroups[country].push(sorted[i]);
+      }
+
+      for (var country in countryGroups) {
+        var countryDiv = createGroupHeader(country, countryGroups[country].length);
+        var countryContent = document.createElement('div');
+        countryContent.className = 'group-content';
+
+        // Group by city within this country
+        var cityGroups = {};
+        for (var i = 0; i < countryGroups[country].length; i++) {
+          var city = countryGroups[country][i].parsed.city || 'Unknown';
+          if (!cityGroups[city]) cityGroups[city] = [];
+          cityGroups[city].push(countryGroups[country][i]);
+        }
+
+        for (var city in cityGroups) {
+          renderGroup(countryContent, city, cityGroups[city]);
+        }
+
+        markerListDiv.appendChild(countryDiv);
+        markerListDiv.appendChild(countryContent);
+      }
+    } else if (filterState.groupByCountry) {
+      // Group by country only
+      var groups = {};
+      for (var i = 0; i < sorted.length; i++) {
+        var country = sorted[i].parsed.country || 'Unknown';
+        if (!groups[country]) groups[country] = [];
+        groups[country].push(sorted[i]);
+      }
+
+      for (var groupName in groups) {
+        renderGroup(markerListDiv, groupName, groups[groupName]);
+      }
+    } else if (filterState.groupByCity) {
+      // Group by city only
+      var groups = {};
+      for (var i = 0; i < sorted.length; i++) {
+        var city = sorted[i].parsed.city || 'Unknown';
+        if (!groups[city]) groups[city] = [];
+        groups[city].push(sorted[i]);
+      }
+
+      for (var groupName in groups) {
+        renderGroup(markerListDiv, groupName, groups[groupName]);
+      }
+    }
+  }
+
+  // Function to create group header
+  function createGroupHeader(title, count) {
+    var header = document.createElement('div');
+    header.className = 'group-header';
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'group-header-title';
+    titleSpan.textContent = title;
+
+    var countSpan = document.createElement('span');
+    countSpan.className = 'group-header-count';
+    countSpan.textContent = '(' + count + ')';
+
+    var arrow = document.createElement('span');
+    arrow.className = 'group-header-arrow';
+    arrow.textContent = '▼';
+
+    header.appendChild(titleSpan);
+    header.appendChild(countSpan);
+    header.appendChild(arrow);
+
+    return header;
+  }
+
+  // Function to render a group
+  function renderGroup(parent, groupName, markers) {
+    var header = createGroupHeader(groupName, markers.length);
+    var content = document.createElement('div');
+    content.className = 'group-content';
+
+    for (var i = 0; i < markers.length; i++) {
+      content.appendChild(createMarkerItem(markers[i], markers[i].originalIndex));
+    }
+
+    header.addEventListener('click', function() {
+      this.classList.toggle('collapsed');
+      this.nextElementSibling.classList.toggle('hidden');
+    });
+
+    parent.appendChild(header);
+    parent.appendChild(content);
+  }
+
+  // Initial render
+  renderMarkerList();
 
   // Sidebar toggle functionality
   var sidebar = document.getElementById('sidebar');
@@ -194,6 +395,51 @@
   sidebarClose.addEventListener('click', function() {
     sidebar.classList.remove('open');
     sidebarToggle.classList.remove('hidden');
+  });
+
+  // Filter toggle event listeners
+  var toggleAuthor = document.getElementById('toggleAuthor');
+  var toggleCountry = document.getElementById('toggleCountry');
+  var toggleCity = document.getElementById('toggleCity');
+  var sortSelect = document.getElementById('sortSelect');
+
+  toggleAuthor.addEventListener('change', function() {
+    if (this.checked) {
+      // Turn off other toggles (except country+city combo)
+      toggleCountry.checked = false;
+      toggleCity.checked = false;
+      filterState.groupByCountry = false;
+      filterState.groupByCity = false;
+    }
+    filterState.groupByAuthor = this.checked;
+    renderMarkerList();
+  });
+
+  toggleCountry.addEventListener('change', function() {
+    if (this.checked) {
+      // Turn off author toggle
+      toggleAuthor.checked = false;
+      filterState.groupByAuthor = false;
+      // City can stay on for country+city combo
+    }
+    filterState.groupByCountry = this.checked;
+    renderMarkerList();
+  });
+
+  toggleCity.addEventListener('change', function() {
+    if (this.checked) {
+      // Turn off author toggle
+      toggleAuthor.checked = false;
+      filterState.groupByAuthor = false;
+      // Country can stay on for country+city combo
+    }
+    filterState.groupByCity = this.checked;
+    renderMarkerList();
+  });
+
+  sortSelect.addEventListener('change', function() {
+    filterState.sortBy = this.value;
+    renderMarkerList();
   });
 
 </script>
