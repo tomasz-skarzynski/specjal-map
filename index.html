@@ -13,6 +13,16 @@
 
 <h1>Specjal On Tour</h1>
 
+<button id="sidebarToggle" class="sidebar-toggle">☰</button>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <h2>Locations</h2>
+    <button id="sidebarClose" class="sidebar-close">×</button>
+  </div>
+  <div id="markerList" class="marker-list"></div>
+</div>
+
 <div id="map"></div>
 <script>
   var map = L.map('map',{
@@ -83,6 +93,8 @@
   //     attribution: '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors'
   // }).addTo(map);
 
+  // Array to store marker references
+  var leafletMarkers = [];
 
   for (var i = 0; i < markers.length; ++i) {
     var imgTag = '<img style="width: 100%" src="' + markers[i].photo + '"';
@@ -113,10 +125,76 @@
       beerIcon = createAnniversaryIcon(beerIcon);
     }
 
-    L.marker([markers[i].latitude, markers[i].longitude], {icon: beerIcon})
+    var leafletMarker = L.marker([markers[i].latitude, markers[i].longitude], {icon: beerIcon})
     .bindPopup(popupContent)
     .addTo(map);
+
+    leafletMarkers.push({
+      marker: leafletMarker,
+      data: markers[i],
+      comment: comment
+    });
   }
+
+  // Populate sidebar with markers
+  var markerListDiv = document.getElementById('markerList');
+  for (var i = 0; i < leafletMarkers.length; ++i) {
+    var markerItem = document.createElement('div');
+    markerItem.className = 'marker-item';
+    markerItem.dataset.index = i;
+
+    var titleDiv = document.createElement('div');
+    titleDiv.className = 'marker-item-title';
+    titleDiv.textContent = leafletMarkers[i].data.title;
+    markerItem.appendChild(titleDiv);
+
+    var authorDiv = document.createElement('div');
+    authorDiv.className = 'marker-item-author';
+    authorDiv.textContent = leafletMarkers[i].data.author;
+    markerItem.appendChild(authorDiv);
+
+    if (leafletMarkers[i].comment) {
+      var commentDiv = document.createElement('div');
+      commentDiv.className = 'marker-item-comment';
+      commentDiv.textContent = leafletMarkers[i].comment;
+      markerItem.appendChild(commentDiv);
+    }
+
+    markerItem.addEventListener('click', function() {
+      var index = parseInt(this.dataset.index);
+      var markerRef = leafletMarkers[index];
+
+      // Close all popups
+      map.closePopup();
+
+      // Center map on marker and open popup
+      map.setView([markerRef.data.latitude, markerRef.data.longitude], 10);
+      markerRef.marker.openPopup();
+
+      // Close sidebar on mobile/smaller screens
+      if (window.innerWidth < 768) {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebarToggle').classList.remove('hidden');
+      }
+    });
+
+    markerListDiv.appendChild(markerItem);
+  }
+
+  // Sidebar toggle functionality
+  var sidebar = document.getElementById('sidebar');
+  var sidebarToggle = document.getElementById('sidebarToggle');
+  var sidebarClose = document.getElementById('sidebarClose');
+
+  sidebarToggle.addEventListener('click', function() {
+    sidebar.classList.add('open');
+    sidebarToggle.classList.add('hidden');
+  });
+
+  sidebarClose.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    sidebarToggle.classList.remove('hidden');
+  });
 
 </script>
 

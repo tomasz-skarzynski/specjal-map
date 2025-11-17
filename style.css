@@ -17,3 +17,129 @@ h1 {
 .leaflet-popup-content-wrapper {
   min-width: 250px;
 }
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -350px;
+  width: 350px;
+  height: 100vh;
+  background-color: #1a1a1a;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.5em;
+  font-variant: small-caps;
+}
+
+.sidebar-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.sidebar-close:hover {
+  transform: scale(1.2);
+}
+
+.marker-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 10px;
+}
+
+.marker-item {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.marker-item:hover {
+  background-color: #3a3a3a;
+  border-color: #555;
+  transform: translateX(5px);
+}
+
+.marker-item-title {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.marker-item-author {
+  color: #aaa;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.marker-item-comment {
+  color: #888;
+  font-size: 0.85em;
+  font-style: italic;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #333;
+}
+
+/* Toggle button */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #1a1a1a;
+  border: 2px solid #555;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle:hover {
+  background-color: #2a2a2a;
+  border-color: #777;
+  transform: scale(1.1);
+}
+
+.sidebar-toggle.hidden {
+  left: -70px;
+}
