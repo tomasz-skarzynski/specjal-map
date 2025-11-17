@@ -339,7 +339,7 @@ markers = [
     longitude: 23.978232,
     photo: "photos/druskienniki.jpg",
     author: "Dulek",
-    title: "Druskininkai - Litwa",
+    title: "Druskininkai - Lithuania",
     titlePL: "Druskininkai - Litwa",
     type: "bottle"
   },
@@ -448,8 +448,8 @@ markers = [
     latitude: 51.408011,
     longitude: 30.055859,
     photo: "photos/marcin/ukraine-chernobyl.jpg",
-    title: "Колесо огляду- Pripyat - Ukraine",
-    titlePL: "Park rozrywki - Prypeć - Ukraina",
+    title: "Ferris wheel- Pripyat - Ukraine",
+    titlePL: "Diabelski młyn - Prypeć - Ukraina",
     author: "Marcin",
     type: "can"
   },
@@ -547,7 +547,7 @@ markers = [
     latitude: 51.481616,
     longitude: -3.180790,
     photo: "photos/marcin/uk-cardiff.jpg",
-    title: "Castle - Cardiff - UK",
+    title: "Castle - Cardiff - United Kingdom",
     titlePL: "Zamek - Cardiff - Wielka Brytania",
     author: "Marcin",
     type: "can"
@@ -574,7 +574,7 @@ markers = [
     latitude: 51.500865,
     longitude: -0.125457,
     photo: "photos/marcin/uk-london.jpg",
-    title: "Big Ben - London - UK",
+    title: "Big Ben - London - United Kingdom",
     titlePL: "Big Ben - Londyn - Wielka Brytania",
     author: "Marcin",
     type: "can"
@@ -610,7 +610,7 @@ markers = [
     latitude: 41.901855,
     longitude: 12.456799,
     photo: "photos/marcin/vatican.jpg",
-    title: "Piazza San Pietro - Vatican",
+    title: "Piazza San Pietro - Vatican City State",
     titlePL: "Plac świętego Piotra - Watykan",
     author: "Marcin",
     type: "can"
@@ -853,7 +853,7 @@ markers = [
     latitude: 54.36412,
     longitude: 18.65383,
     photo: "photos/gdansk-zuraw.jpg",
-    title: "Żuraw M3 - Gdańsk - Polska",
+    title: "Żuraw M3 - Gdańsk - Poland",
     titlePL: "Żuraw M3 - Gdańsk - Polska",
     author: "Doris",
     type: "bottle"
@@ -916,7 +916,7 @@ markers = [
     latitude: 36.383333,
     longitude: -3.81666,
     photo: "photos/dolphins.jpg",
-    title: "Wybrzeże Andaluzji - Morze Śródziemne",
+    title: "Andalusian coast - Mediterranean Sea",
     titlePL: "Wybrzeże Andaluzji - Morze Śródziemne",
     author: "Doris", 
     type: "bottle"
@@ -1063,8 +1063,8 @@ markers = [
     latitude: 54.40397852529845,
     longitude: 18.556974937088537,
     photo: "photos/tomasz/gdansk-oliwa-upstairs.jpg",
-    title: "Upstairs aka Staw - Gdańsk-Oliwa - Poland",
-    titlePL: "Upstairs aka Staw - Gdańsk-Oliwa - Polska",
+    title: "Upstairs aka Staw, Oliwa - Gdańsk - Poland",
+    titlePL: "Upstairs aka Staw, Oliwa - Gdańsk - Polska",
     author: "Tomasz",
     datetime: "2019-04-20T12:13:53.000Z",
     commentPL: "Upstairs (Up Oliwa) to miejsce położone nad Stawem w Gdańskiej Oliwie, które odgrywa ważną rolę w kształtowaniu charakterów młodzieży z pobliskiego V Liceum Ogólnokształcącego. Nazwa pochodzi od pierwotnie istniejącego wzniesienia, do którego prowadziły leśne schody. Miejsce to zostało opuszczone, ale nazwa pozostała.",
@@ -1434,8 +1434,8 @@ markers = [
     latitude: 51.500767,
     longitude: -0.121683,
     photo: "photos/marcin/london.jpg",
-    title: "Big Ben - London - UK",
-    titlePL: "Big Ben - London - UK",
+    title: "Big Ben - London - United Kingdom",
+    titlePL: "Big Ben - Londyn - Wielka Brytania",
     author: "Marcin",
     type: "can"
   },
@@ -1494,8 +1494,8 @@ markers = [
     longitude: 18.567157490286117,
     photo: "photos/tomasz/oliwa-sp35.jpg",
     author: "Tomasz",
-    title: "SP 35, ZKPiG 17, Gim 24 - Gdańsk-Oliwa - Poland",
-    titlePL: "SP 35, ZKPiG 17, Gim 24 - Gdańsk-Oliwa - Polska",
+    title: "SP 35, ZKPiG 17, Gim 24, Oliwa - Gdańsk - Poland",
+    titlePL: "SP 35, ZKPiG 17, Gim 24, Oliwa - Gdańsk - Polska",
     commentPL: "Wybory prezydenckie w Polsce w 2020 roku (drugie)",
     comment: "2020 Polish presidential election",
     datetime: "2020-07-12T15:12:36.000Z",
@@ -1516,8 +1516,8 @@ markers = [
     longitude: 18.617686025683824,
     photo: "photos/tomasz/gdansk-lipce-borkowska.jpg",
     author: "Tomasz",
-    title: "Gdańsk-Lipce - Poland",
-    titlePL: "Gdańsk-Lipce - Polska",
+    title: "Lipce - Gdańsk - Poland",
+    titlePL: "Lipce - Gdańsk - Polska",
     datetime: "2020-05-10T18:31:42.000Z",
     type: "can"
   },
@@ -1616,9 +1616,9 @@ markers = [
     photo: "photos/tomasz/syrakuzy-ortigia.jpg",
     author: "Tomasz",
     title: "Syracuse, Ortigia - Sicily, Italy",    
-    titlePL: "Ortigia - Syrakuzy - Sycylia, Włochyy",
+    titlePL: "Ortigia - Syrakuzy - Sycylia, Włochy",
     commentPL: "Wyspa Ortigia w Syrakuzach to połączenie starożytnej historii i śródziemnomorskiego uroku. Podobnie jak szachach, gdzie Obrona Sycylijska strategicznie broni króla, Ortigia przez wieki pilnuje dziedzictwa Sycylii.",    
-    comment: "The Fountain of Arethusa ",
+    comment: "The Fountain of Arethusa",
     datetime: "2021-09-12T18:27:25.000Z",
     type: "can"
   },
@@ -1838,7 +1838,7 @@ markers = [
     photo: "photos/madeira.jpg",
     author: "Dulek",
     title: "Pico Ruivo - Madeira - Portugal",
-    titlePL: "Pico Ruivo - Madeira - Portugalia",
+    titlePL: "Pico Ruivo - Madera - Portugalia",
     type: "can"
   },
   {
@@ -1864,7 +1864,7 @@ markers = [
     longitude: 15.939367579284918,
     photo: "photos/miedzianka.jpg",
     author: "Dulek",
-    title: "Miedzianka - Polska",
+    title: "Miedzianka - Poland",
     titlePL: "Miedzianka - Polska",
     type: "bottle"
   },
@@ -1873,7 +1873,7 @@ markers = [
     longitude: 21.87006595577939,
     photo: "photos/milki.jpg",
     author: "Dulek",
-    title: "Miłki - Polska",
+    title: "Miłki - Poland",
     titlePL: "Miłki - Polska",
     type: "bottle"
   },
@@ -2072,7 +2072,7 @@ markers = [
     photo: "photos/tomasz/watykan.jpg",
     author: "Tomasz",
     title: "Piazza San Pietro - Vatican City State",
-    titlePL: "Piazza San Pietro - Vatican City State",
+    titlePL: "Plac świętego Piotra - Watykan",
     datetime: "2024-04-24T17:40:53.000Z",
     type: "can"
   },
@@ -2082,7 +2082,7 @@ markers = [
     photo: "photos/tomasz/rzym-panorama.jpg",
     author: "Tomasz",
     title: "Rome - Italy",
-    titlePL: "Rome - Włochy",
+    titlePL: "Rzym - Włochy",
     datetime: "2024-04-25T17:02:03.000Z",
     type: "can"
   },
@@ -2322,7 +2322,7 @@ markers = [
     photo: "photos/tomasz/sajgon.jpg",
     author: "Tomasz",
     title: "Landmark 81 - Saigon / Ho Chi Minh - Vietnam", 
-    titlePL: "Landmark 81 - Saigon / Ho Chi Minh - Wietnam",
+    titlePL: "Landmark 81 - Sajgon / Ho Chi Minh - Wietnam",
     datetime: "2025-01-31T09:09:11.000Z",
     type: "can"
   },
@@ -2383,7 +2383,7 @@ markers = [
     longitude: 19.896811,
     photo: "photos/tomasz/wel.jpg",
     author: "Tomasz",
-    title: "Rzeka Wel - Polska",
+    title: "Rzeka Wel - Poland",
     titlePL: "Rzeka Wel - Polska",
     datetime: "2025-08-10T09:53:36.000Z",
     type: "can"
