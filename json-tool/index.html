@@ -60,16 +60,20 @@
                     <input type="text" id="author" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="title">Title:</label>
+                    <label for="title">Title (English):</label>
                     <input type="text" id="title" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="commentPolish">Comment (Polish):</label>
-                    <input type="text" id="commentPolish" class="form-control">
+                    <label for="titlePL">Title (Polish):</label>
+                    <input type="text" id="titlePL" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="commentEnglish">Comment (English):</label>
-                    <input type="text" id="commentEnglish" class="form-control">
+                    <label for="comment">Comment (English):</label>
+                    <input type="text" id="comment" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="commentPL">Comment (Polish):</label>
+                    <input type="text" id="commentPL" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Type:</label>
@@ -157,30 +161,33 @@
             const author = authorInput ? authorInput.value : '';
             const titleInput = document.getElementById('title');
             const title = titleInput ? titleInput.value : '';
-            const commentPolishInput = document.getElementById('commentPolish');
-            const commentPolish = commentPolishInput ? commentPolishInput.value : '';
-            const commentEnglishInput = document.getElementById('commentEnglish');
-            const commentEnglish = commentEnglishInput ? commentEnglishInput.value : '';
+            const titlePLInput = document.getElementById('titlePL');
+            const titlePL = titlePLInput ? titlePLInput.value : '';
+            const commentInput = document.getElementById('comment');
+            const comment = commentInput ? commentInput.value : '';
+            const commentPLInput = document.getElementById('commentPL');
+            const commentPL = commentPLInput ? commentPLInput.value : '';
             const typeInput = document.querySelector('input[name="type"]:checked');
             const type = typeInput ? typeInput.value.toLowerCase() : '';
 
             const photoPath = `photos/${author.toLowerCase()}/${photo.replace("C:\\fakepath\\", "")}`;
 
-            
-            const dateValueInput = document.getElementById('modifiedDateDefault');
-            const dateValue = dateValueInput ? new Date(dateValueInput.value).toISOString(): ''; 
 
-        
+            const dateValueInput = document.getElementById('modifiedDateDefault');
+            const dateValue = dateValueInput ? new Date(dateValueInput.value).toISOString(): '';
+
+
             const json = {
                 latitude,
                 longitude,
                 photo: photoPath,
                 author,
                 title,
-                commentPolish,
-                commentEnglish,
-                datetime: dateValue,
+                ...(titlePL && { titlePL }),
                 type,
+                ...(comment && { comment }),
+                ...(commentPL && { commentPL }),
+                ...(dateValue && { datetime: dateValue })
             };
 
             const jsonOutput = JSON.stringify(json, null, 2);
