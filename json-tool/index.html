@@ -61,11 +61,21 @@
                 </div>
                 <div class="form-group">
                     <label for="title">Title (English):</label>
-                    <input type="text" id="title" class="form-control">
+                    <small class="form-text text-muted">
+                        Format: Location name - City - Country (e.g., "Sagrada Familia - Barcelona - Spain")
+                    </small>
+                    <input type="text" id="title" class="form-control" oninput="searchSimilarMarkers()">
                 </div>
                 <div class="form-group">
                     <label for="titlePL">Title (Polish):</label>
-                    <input type="text" id="titlePL" class="form-control">
+                    <small class="form-text text-muted">
+                        Format: Nazwa miejsca - Miasto - Kraj (np. "Sagrada Familia - Barcelona - Hiszpania")
+                    </small>
+                    <input type="text" id="titlePL" class="form-control" oninput="searchSimilarMarkers()">
+                </div>
+                <div id="similarMarkers" class="alert alert-info" style="display: none;">
+                    <strong>Similar locations found:</strong>
+                    <ul id="similarMarkersList" style="margin-bottom: 0;"></ul>
                 </div>
                 <div class="form-group">
                     <label for="comment">Comment (English):</label>
@@ -99,6 +109,74 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../markers.js"></script>
+
+    <script>
+        // Global markers variable will be loaded from markers.js
+        let loadedMarkers = [];
+
+        // Wait for markers.js to load
+        window.addEventListener('load', function() {
+            if (typeof markers !== 'undefined') {
+                loadedMarkers = markers;
+                console.log('Loaded ' + loadedMarkers.length + ' markers for searching');
+            }
+        });
+
+        function searchSimilarMarkers() {
+            const titleInput = document.getElementById('title').value.toLowerCase();
+            const titlePLInput = document.getElementById('titlePL').value.toLowerCase();
+            const searchTerms = [titleInput, titlePLInput].filter(term => term.length > 2);
+
+            if (searchTerms.length === 0) {
+                document.getElementById('similarMarkers').style.display = 'none';
+                return;
+            }
+
+            const similarMarkers = [];
+            const searchWords = searchTerms.flatMap(term => term.split(/[-\s,]+/).filter(word => word.length > 2));
+
+            loadedMarkers.forEach(marker => {
+                const markerTitle = (marker.title || '').toLowerCase();
+                const markerTitlePL = (marker.titlePL || '').toLowerCase();
+
+                // Check if any search word matches in titles
+                const hasMatch = searchWords.some(word =>
+                    markerTitle.includes(word) || markerTitlePL.includes(word)
+                );
+
+                if (hasMatch) {
+                    // Calculate relevance score (how many words match)
+                    const score = searchWords.reduce((acc, word) => {
+                        return acc + (markerTitle.includes(word) ? 1 : 0) + (markerTitlePL.includes(word) ? 1 : 0);
+                    }, 0);
+
+                    similarMarkers.push({
+                        title: marker.title,
+                        titlePL: marker.titlePL,
+                        author: marker.author,
+                        score: score
+                    });
+                }
+            });
+
+            // Sort by relevance (higher score first)
+            similarMarkers.sort((a, b) => b.score - a.score);
+
+            // Display results
+            const markersList = document.getElementById('similarMarkersList');
+            const markersDiv = document.getElementById('similarMarkers');
+
+            if (similarMarkers.length > 0) {
+                markersList.innerHTML = similarMarkers.slice(0, 10).map(marker =>
+                    `<li><strong>EN:</strong> ${marker.title || 'N/A'}<br><strong>PL:</strong> ${marker.titlePL || 'N/A'}<br><small class="text-muted">Author: ${marker.author}</small></li>`
+                ).join('');
+                markersDiv.style.display = 'block';
+            } else {
+                markersDiv.style.display = 'none';
+            }
+        }
+    </script>
 
     <script>
         function allowDrop(event) {
