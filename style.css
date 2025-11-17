@@ -144,11 +144,54 @@ h1 {
   left: -70px;
 }
 
+/* Controls Header */
+.controls-header {
+  padding: 12px 15px;
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.controls-header:hover {
+  background-color: #333;
+}
+
+.controls-header-title {
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.controls-header-arrow {
+  color: #aaa;
+  font-size: 0.8em;
+  transition: transform 0.2s;
+}
+
+.controls-header.collapsed .controls-header-arrow {
+  transform: rotate(-90deg);
+}
+
 /* Sidebar Controls */
 .sidebar-controls {
   padding: 15px;
   border-bottom: 1px solid #333;
   background-color: #1a1a1a;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.sidebar-controls.hidden {
+  max-height: 0;
+  padding: 0 15px;
+  border-bottom: none;
 }
 
 .control-section {

@@ -21,7 +21,12 @@
     <button id="sidebarClose" class="sidebar-close">×</button>
   </div>
 
-  <div class="sidebar-controls">
+  <div class="controls-header collapsed" id="controlsHeader">
+    <span class="controls-header-title">Filters & Sort</span>
+    <span class="controls-header-arrow">▼</span>
+  </div>
+
+  <div class="sidebar-controls hidden" id="sidebarControls">
     <div class="control-section">
       <label class="control-label">Group by:</label>
       <div class="toggle-group">
@@ -49,6 +54,10 @@
         <option value="order">Order Added</option>
         <option value="author-asc">Author (A-Z)</option>
         <option value="author-desc">Author (Z-A)</option>
+        <option value="country-asc">Country (A-Z)</option>
+        <option value="country-desc">Country (Z-A)</option>
+        <option value="city-asc">City (A-Z)</option>
+        <option value="city-desc">City (Z-A)</option>
         <option value="date-asc">Date (Oldest)</option>
         <option value="date-desc">Date (Newest)</option>
       </select>
@@ -209,7 +218,7 @@
       var ref = leafletMarkers[idx];
 
       map.closePopup();
-      var targetLat = ref.data.latitude - 0.15;
+      var targetLat = ref.data.latitude - 0.3;
       map.setView([targetLat, ref.data.longitude], 8);
       ref.marker.openPopup();
 
@@ -233,6 +242,30 @@
     } else if (sortBy === 'author-desc') {
       sorted.sort(function(a, b) {
         return b.data.author.localeCompare(a.data.author);
+      });
+    } else if (sortBy === 'country-asc') {
+      sorted.sort(function(a, b) {
+        var countryA = a.parsed.country || 'Unknown';
+        var countryB = b.parsed.country || 'Unknown';
+        return countryA.localeCompare(countryB);
+      });
+    } else if (sortBy === 'country-desc') {
+      sorted.sort(function(a, b) {
+        var countryA = a.parsed.country || 'Unknown';
+        var countryB = b.parsed.country || 'Unknown';
+        return countryB.localeCompare(countryA);
+      });
+    } else if (sortBy === 'city-asc') {
+      sorted.sort(function(a, b) {
+        var cityA = a.parsed.city || 'Unknown';
+        var cityB = b.parsed.city || 'Unknown';
+        return cityA.localeCompare(cityB);
+      });
+    } else if (sortBy === 'city-desc') {
+      sorted.sort(function(a, b) {
+        var cityA = a.parsed.city || 'Unknown';
+        var cityB = b.parsed.city || 'Unknown';
+        return cityB.localeCompare(cityA);
       });
     } else if (sortBy === 'date-asc') {
       sorted.sort(function(a, b) {
@@ -305,6 +338,12 @@
         for (var city in cityGroups) {
           renderGroup(countryContent, city, cityGroups[city]);
         }
+
+        // Add collapse functionality to country header
+        countryDiv.addEventListener('click', function() {
+          this.classList.toggle('collapsed');
+          this.nextElementSibling.classList.toggle('hidden');
+        });
 
         markerListDiv.appendChild(countryDiv);
         markerListDiv.appendChild(countryContent);
@@ -395,6 +434,15 @@
   sidebarClose.addEventListener('click', function() {
     sidebar.classList.remove('open');
     sidebarToggle.classList.remove('hidden');
+  });
+
+  // Controls header collapse functionality
+  var controlsHeader = document.getElementById('controlsHeader');
+  var sidebarControls = document.getElementById('sidebarControls');
+
+  controlsHeader.addEventListener('click', function() {
+    this.classList.toggle('collapsed');
+    sidebarControls.classList.toggle('hidden');
   });
 
   // Filter toggle event listeners
