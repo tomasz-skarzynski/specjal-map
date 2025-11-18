@@ -457,8 +457,14 @@ h1 {
   padding: 10px 15px;
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
   border-radius: 3px;
+  opacity: 0;
+}
+
+.carousel-container:hover .carousel-prev,
+.carousel-container:hover .carousel-next {
+  opacity: 1;
 }
 
 .carousel-prev:hover,
@@ -499,6 +505,120 @@ h1 {
   background-color: #666;
 }
 
+/* Fullscreen Gallery Styles */
+.fullscreen-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-overlay.active {
+  display: flex;
+}
+
+.fullscreen-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  user-select: none;
+}
+
+.fullscreen-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10001;
+  background: none;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.fullscreen-close:hover {
+  transform: scale(1.2);
+  color: #f44336;
+}
+
+.fullscreen-prev,
+.fullscreen-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  font-size: 40px;
+  padding: 20px 25px;
+  cursor: pointer;
+  z-index: 10001;
+  transition: all 0.2s;
+  border-radius: 5px;
+}
+
+.fullscreen-prev:hover,
+.fullscreen-next:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.fullscreen-prev {
+  left: 30px;
+}
+
+.fullscreen-next {
+  right: 30px;
+}
+
+.fullscreen-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.fullscreen-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.fullscreen-dot.active {
+  background-color: white;
+  transform: scale(1.3);
+}
+
+.fullscreen-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sidebar {
@@ -514,6 +634,7 @@ h1 {
   .carousel-next {
     font-size: 18px;
     padding: 8px 12px;
+    opacity: 1; /* Always visible on mobile */
   }
 
   .carousel-prev {
