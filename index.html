@@ -166,19 +166,51 @@
     var title = (language === 'pl' && markers[i].titlePL) ? markers[i].titlePL : markers[i].title;
 
     // Get comment based on language
-    var imgTag = '<img style="width: 100%" src="' + markers[i].photo + '"';
     var comment = "";
     if (language === 'pl' && markers[i].commentPL) {
         comment = markers[i].commentPL;
     } else if (markers[i].comment) {
         comment = markers[i].comment;
     }
-    if (comment) {
+
+    // Build image content (single image or gallery carousel)
+    var imageContent = '';
+    if (markers[i].gallery && markers[i].gallery.length > 0) {
+      // Create carousel for gallery
+      var allPhotos = [markers[i].photo].concat(markers[i].gallery);
+      imageContent = '<div class="carousel-container" data-marker-index="' + i + '">';
+      imageContent += '<div class="carousel-images">';
+      for (var j = 0; j < allPhotos.length; j++) {
+        var imgTag = '<img class="carousel-image' + (j === 0 ? ' active' : '') + '" src="' + allPhotos[j] + '"';
+        if (comment) {
+          imgTag += ' alt="' + comment + '" title="' + comment + '"';
+        }
+        imgTag += '/>';
+        imageContent += imgTag;
+      }
+      imageContent += '</div>';
+      if (allPhotos.length > 1) {
+        imageContent += '<button class="carousel-prev" onclick="navigateCarousel(' + i + ', -1); event.preventDefault();">❮</button>';
+        imageContent += '<button class="carousel-next" onclick="navigateCarousel(' + i + ', 1); event.preventDefault();">❯</button>';
+        imageContent += '<div class="carousel-dots">';
+        for (var j = 0; j < allPhotos.length; j++) {
+          imageContent += '<span class="carousel-dot' + (j === 0 ? ' active' : '') + '" onclick="goToSlide(' + i + ', ' + j + '); event.preventDefault();"></span>';
+        }
+        imageContent += '</div>';
+      }
+      imageContent += '</div>';
+    } else {
+      // Single image (original behavior)
+      var imgTag = '<img style="width: 100%" src="' + markers[i].photo + '"';
+      if (comment) {
         imgTag += ' alt="'+comment+'"';
         imgTag += ' title="'+comment+'"';
+      }
+      imgTag += '/>';
+      imageContent = '<a href="' + markers[i].photo + '">'+imgTag+'</a>';
     }
-    imgTag += '/>';
-    var popupContent = '<h2> ' + title + '</h2><a href="' + markers[i].photo + '">'+imgTag+'</a>📷 ' + markers[i].author;
+
+    var popupContent = '<h2> ' + title + '</h2>' + imageContent + '📷 ' + markers[i].author;
     if (markers[i].datetime) {
         popupContent += '<br>🗓️ ' + displayDate(markers[i].datetime);
     }
@@ -715,6 +747,86 @@
       toggleAllButton.title = t('collapseAll');
     }
   };
+
+  // Gallery carousel functionality
+  var carouselStates = {}; // Track current slide for each marker
+
+  function navigateCarousel(markerIndex, direction) {
+    var marker = markers[markerIndex];
+    if (!marker.gallery || marker.gallery.length === 0) return;
+
+    var allPhotos = [marker.photo].concat(marker.gallery);
+    var currentIndex = carouselStates[markerIndex] || 0;
+    var newIndex = currentIndex + direction;
+
+    // Wrap around
+    if (newIndex < 0) newIndex = allPhotos.length - 1;
+    if (newIndex >= allPhotos.length) newIndex = 0;
+
+    goToSlide(markerIndex, newIndex);
+  }
+
+  function goToSlide(markerIndex, slideIndex) {
+    carouselStates[markerIndex] = slideIndex;
+
+    // Find the carousel container for this marker
+    var container = document.querySelector('.carousel-container[data-marker-index="' + markerIndex + '"]');
+    if (!container) return;
+
+    // Update images
+    var images = container.querySelectorAll('.carousel-image');
+    images.forEach(function(img, idx) {
+      if (idx === slideIndex) {
+        img.classList.add('active');
+      } else {
+        img.classList.remove('active');
+      }
+    });
+
+    // Update dots
+    var dots = container.querySelectorAll('.carousel-dot');
+    dots.forEach(function(dot, idx) {
+      if (idx === slideIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // Touch gesture support for carousel
+  var touchStartX = 0;
+  var touchEndX = 0;
+
+  document.addEventListener('touchstart', function(e) {
+    var carousel = e.target.closest('.carousel-container');
+    if (carousel) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+  }, false);
+
+  document.addEventListener('touchend', function(e) {
+    var carousel = e.target.closest('.carousel-container');
+    if (carousel) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe(carousel);
+    }
+  }, false);
+
+  function handleSwipe(carousel) {
+    var markerIndex = parseInt(carousel.dataset.markerIndex);
+    var swipeThreshold = 50;
+
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swipe left - next image
+      navigateCarousel(markerIndex, 1);
+    }
+
+    if (touchEndX > touchStartX + swipeThreshold) {
+      // Swipe right - previous image
+      navigateCarousel(markerIndex, -1);
+    }
+  }
 
 </script>
 

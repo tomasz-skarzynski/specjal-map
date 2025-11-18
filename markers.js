@@ -2386,7 +2386,13 @@ markers = [
     title: "Rzeka Wel - Poland",
     titlePL: "Rzeka Wel - Polska",
     datetime: "2025-08-10T09:53:36.000Z",
-    type: "can"
+    type: "can",
+    gallery: [
+      "photos/tomasz/wdzydze-borsk.jpg",
+      "photos/tomasz/zatoka-gdanska.jpg",
+      "photos/tomasz/zbrzyca.jpg",
+      "photos/tomasz/jeziorak-23.jpg"
+    ]
   }
 ]
 
